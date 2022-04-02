@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QIcon
 
+#https://codetorial.net/pyqt5/basics/statusbar.html
+
 class MyApp(QWidget):
 
     def __init__(self):
