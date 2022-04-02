@@ -3,13 +3,14 @@ from colorama import init, Fore
 import sys
 import colorsys
 import os
+import numpy as np
 
 fill = ["⣿","⣧","⠈","⠻","⠋","⣷","⣄","⡉","⠉"," ","⣴"]
-
+#"⠫","⠬","⠭","⠮","⠰","⠱","⠲","⠳","⠴","⠵","⠶","⠁","⠂","⠃","⠄","⠅","⠆","⠇","⠈","⠉","⠊","⠋","⠌","⠍","⠎","⠏","⠐","⠑","⠒","⠓","⠔","⠕","⠖","⠗","⠘","⠙","⠚","⠛","⠜","⠝","⠞","⠠","⠡","⠢","⠣","⠤","⠥","⠦","⠧","⠨","⠩","⠪"
 class converter():
     def __init__(self, dir):
         self.dir = dir
-        self.size = (50, 50)
+        self.size = (30, 30)
         init(autoreset=True)
 
     def create_gray(self):
@@ -24,16 +25,18 @@ class converter():
 
                 # 이미지의 모든 픽셀 정보 로드
                 pixels = img.load()
+                print(pixels)
 
                 # 이미지의 폭, 높이 가져오기
                 width, height = img.size
-                
+
                 # 1픽셀씩 반복하며 출력
                 for h in range(height):
                     for w in range(width):
                         print(self.get_ascii(pixels[w, h]), end="")
                     # 개행
                     print()
+            
 
         except Exception as e:
             print("작업 중 오류가 발생하였습니다:", e)
@@ -69,7 +72,9 @@ class converter():
     
     # 0 ~ 255 사이의 값을 받은 후 0 ~ 9 범위로 변환
     def get_ascii(self, value):
-        return fill[int(value / 25) - 1] * 2
+        return fill[int(value / 25)-1] 
+        
+        
 
     def get_color_ascii(self, rgb):
         r = rgb[0]
