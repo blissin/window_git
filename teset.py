@@ -4,7 +4,7 @@ import sys
 import colorsys
 import os
 
-fill = [" ", ".", "-", ":", "*", "+", "%", "&", "@", "#"]
+fill = ["⣿","⣧","⠈","⠻","⠋","⣷","⣄","⡉","⠉"," ","⣴"]
 
 class converter():
     def __init__(self, dir):
