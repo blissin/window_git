@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import *# QApplication, QWidget, QPushButton, QMainWindow, qApp, QAction, QDesktopWidget
+from PyQt5.QtWidgets import *# QApplication, QWidget, QPushButton, QMainWindow, qApp, QAction, QDesktopWidget, QHBoxLayout, QVBoxLayout
 from PyQt5.QtCore import * #QCoreApplication, QDate, Qt
 from PyQt5.QtGui import QIcon
 
@@ -22,7 +22,7 @@ class MyApp(QMainWindow):
         #이름, 아이콘
         self.setWindowTitle('My First Application')
         self.setWindowIcon(QIcon('다운로드.png'))
-        
+      
         exitAction = QAction(QIcon('exit.png'), 'Exit', self)
         exitAction.setShortcut('Ctrl+Q') #단축키로도 실행되게 설정
         exitAction.setStatusTip('Exit') #하단 메뉴바에 표시
@@ -35,20 +35,12 @@ class MyApp(QMainWindow):
         filemenu = menubar.addMenu('&File')
         filemenu.addAction(exitAction)
         self.statusBar()
-        self.show()
+
         #시간, 계속 표시하는 법 필요
         self.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate)+" "+self.time.toString(Qt.DefaultLocaleLongDate))
-            
-
-        '''
-        # Quit 버튼
-        btn = QPushButton('Quit', self)
-        btn.move(300, 350)
-        btn.resize(btn.sizeHint()) #?
-        btn.clicked.connect(QCoreApplication.instance().quit)
-        '''
-
     
+
+ 
     def center(self):
         self.show()
         qr = self.frameGeometry()
