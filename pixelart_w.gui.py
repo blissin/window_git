@@ -3,7 +3,11 @@ from colorama import init, Fore
 import colorsys
 import sys, os
 import numpy as np
-
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5 import uic
+from PyQt5 import QtWidgets
 
 fill = ["⣿","⣧","⠈","⠻","⠋","⣷","⣄","⡉","⠉"," ","⣴"]
 #"⠫","⠬","⠭","⠮","⠰","⠱","⠲","⠳","⠴","⠵","⠶","⠁","⠂","⠃","⠄","⠅","⠆","⠇","⠈","⠉","⠊","⠋","⠌","⠍","⠎","⠏","⠐","⠑","⠒","⠓","⠔","⠕","⠖","⠗","⠘","⠙","⠚","⠛","⠜","⠝","⠞","⠠","⠡","⠢","⠣","⠤","⠥","⠦","⠧","⠨","⠩","⠪"
@@ -120,6 +124,80 @@ class converter():
         # 색상과 출력할 문자를 합쳐서 전달
         return color + c
 
+class MyApp(QMainWindow,QDialog):
+    
+    def __init__(self,parent=None):
+        super().__init__(parent)
+        # self.date = QDate.currentDate()
+        # self.time = QTime.currentTime()
+        self.ui=uic.loadUi("app.ui",self)
+        self.ui.show()
+        # self.initUI()
+        
+
+    def start(self):
+        self.ui.label_status.setText("start")
+    def stop(self):
+        self.ui.label_status.setText("stop") 
+
+    def slot_fileopen(self):
+        fname=QFileDialog.getOpenFileName(self, 'Open file','./')
+        print(type(fname),fname)
+        self.ui.label_filename.setText(fname[0])
+        
+        if fname[0]:
+            f=open(fname[0],'r', encoding='UTF-8')
+            with f:
+                data=f.read()
+                self.textEdit_contents.setText(data)
+
+    def loadImageFromFile(self) :
+        f_name=QFileDialog.getOpenFileName(self, 'Open file','./', 'All File(*);;Image File(*.png *jpg)')
+        
+        if f_name[0]:
+            pixmap=QPixmap(f_name[0])
+            self.label_image.setPixmap(pixmap)
+            
+        
+    def initUI(self):
+        #위치, 사이즈
+        self.setGeometry(300,300,400,400) # self.move() + self.resize()
+        self.center() #center method
+        #이름, 아이콘
+        self.setWindowTitle('My First Application')
+        self.setWindowIcon(QIcon('다운로드.png'))
+      
+        exitAction = QAction(QIcon('exit.png'), 'Exit', self)
+        exitAction.setShortcut('Ctrl+Q') #단축키로도 실행되게 설정
+        exitAction.setStatusTip('Exit') #하단 메뉴바에 표시
+        exitAction.triggered.connect(qApp.quit) #트리거        
+        self.toolbar = self.addToolBar('Exit')
+        self.toolbar.addAction(exitAction)
+        
+        menubar = self.menuBar()
+        menubar.setNativeMenuBar(False)
+        filemenu = menubar.addMenu('&File')
+        filemenu.addAction(exitAction)
+        self.statusBar()
+
+        #시간, 계속 표시하는 법 필요
+        self.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate)+" "+self.time.toString(Qt.DefaultLocaleLongDate))
+    
+    def center(self):
+        self.show()
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+    
+        
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MyApp()
+    sys.exit(app.exec_())
+# 모드 입력 확인
+
+'''
 mode_check = False
 try:
     # 이미지 경로
@@ -151,3 +229,4 @@ if os.path.isfile(img_dir):
         
 else:
     print("{} 파일이 없습니다.".format(img_dir))
+'''
