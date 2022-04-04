@@ -3,9 +3,10 @@ from colorama import init, Fore
 import colorsys
 import sys, os
 import numpy as np
+import pandas as pd
 
 
-fill = ["⣿","⣧","⠈","⠻","⠋","⣷","⣄","⡉","⠉"," ","⣴"]
+fill = ["⠈","⠋","⡿","⣄","⡉","⠉","⠻","⣴","⣷","⣧",' ','⣿']
 #"⠫","⠬","⠭","⠮","⠰","⠱","⠲","⠳","⠴","⠵","⠶","⠁","⠂","⠃","⠄","⠅","⠆","⠇","⠈","⠉","⠊","⠋","⠌","⠍","⠎","⠏","⠐","⠑","⠒","⠓","⠔","⠕","⠖","⠗","⠘","⠙","⠚","⠛","⠜","⠝","⠞","⠠","⠡","⠢","⠣","⠤","⠥","⠦","⠧","⠨","⠩","⠪"
 class converter():
     def __init__(self, dir):
@@ -29,13 +30,19 @@ class converter():
 
                 # 이미지의 폭, 높이 가져오기
                 width, height = img.size
-
+                a=[]
                 # 1픽셀씩 반복하며 출력
                 for h in range(height):
                     for w in range(width):
                         print(self.get_ascii(pixels[w, h]), end="")
+                        a.append(self.get_ascii(pixels[w, h]))
                     # 개행
                     print()
+                data=np.array(a)
+                data=data.reshape(h+1,w+1)
+                data=pd.DataFrame(data)
+                data.drop([0],inplace=True)                # data=data.drop([0],axis=0)
+                data.to_csv('temp.csv',encoding='UTF-8',index=False,header=None)
             
 
         except Exception as e:

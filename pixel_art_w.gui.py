@@ -1,20 +1,24 @@
+from encodings import utf_8
+from lib2to3.pytree import convert
 from PIL import Image
 from colorama import init, Fore
 import colorsys
 import sys, os
 import numpy as np
+import pandas as pd
+import csv
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5 import uic
 from PyQt5 import QtWidgets
 
-fill = ["⣿","⣧","⠈","⠻","⠋","⣷","⣄","⡉","⠉"," ","⣴"]
+fill = ["⠈","⠋","⡿","⣄","⡉","⠉","⠻","⣴","⣷","⣧",' ','⣿']
 #"⠫","⠬","⠭","⠮","⠰","⠱","⠲","⠳","⠴","⠵","⠶","⠁","⠂","⠃","⠄","⠅","⠆","⠇","⠈","⠉","⠊","⠋","⠌","⠍","⠎","⠏","⠐","⠑","⠒","⠓","⠔","⠕","⠖","⠗","⠘","⠙","⠚","⠛","⠜","⠝","⠞","⠠","⠡","⠢","⠣","⠤","⠥","⠦","⠧","⠨","⠩","⠪"
 class converter():
     def __init__(self, dir):
         self.dir = dir
-        self.size = (30, 30)
+        self.size = (50, 50)
         init(autoreset=True)
 
     def create_gray(self):
@@ -33,15 +37,26 @@ class converter():
 
                 # 이미지의 폭, 높이 가져오기
                 width, height = img.size
-
+                a=[]
                 # 1픽셀씩 반복하며 출력
                 for h in range(height):
                     for w in range(width):
                         print(self.get_ascii(pixels[w, h]), end="")
+                        a.append(self.get_ascii(pixels[w, h])) 
                     # 개행
                     print()
-            
 
+                #데이터 array -> reshape -> pandas -> csv
+                data=np.array(a)
+                data=data.reshape(h+1,w+1)
+                data=pd.DataFrame(data)
+                data.drop([0],inplace=True)                # data=data.drop([0],axis=0)
+                data.to_csv('temp.csv',encoding='UTF-8',index=False,header=None)
+                '''
+                with open('temp.csv','w',encoding='UTF-8') as file:
+                    write=csv.writer(file)
+                    write.writerow(a)
+                '''    
         except Exception as e:
             print("작업 중 오류가 발생하였습니다:", e)
 
@@ -74,7 +89,7 @@ class converter():
         except Exception as e:
             print("작업 중 오류가 발생하였습니다:", e)
     
-    # 0 ~ 255 사이의 값을 받은 후 0 ~ 9 범위로 변환
+    # 0 ~ 255 사이의 값을 받은 후 0 ~ 9 범위로 변환 // 좀더 해상도 높이는 법? 순서대로 말고 
     def get_ascii(self, value):
         return fill[int(value / 25)-1] 
         
@@ -128,12 +143,8 @@ class MyApp(QMainWindow,QDialog):
     
     def __init__(self,parent=None):
         super().__init__(parent)
-        # self.date = QDate.currentDate()
-        # self.time = QTime.currentTime()
         self.ui=uic.loadUi("app.ui",self)
         self.ui.show()
-        # self.initUI()
-        
 
     def start(self):
         self.ui.label_status.setText("start")
@@ -144,52 +155,31 @@ class MyApp(QMainWindow,QDialog):
         fname=QFileDialog.getOpenFileName(self, 'Open file','./')
         print(type(fname),fname)
         self.ui.label_filename.setText(fname[0])
-        
         if fname[0]:
             f=open(fname[0],'r', encoding='UTF-8')
             with f:
                 data=f.read()
                 self.textEdit_contents.setText(data)
 
+    #img 파일 불러오기
     def loadImageFromFile(self) :
         f_name=QFileDialog.getOpenFileName(self, 'Open file','./', 'All File(*);;Image File(*.png *jpg)')
-        
+        self.ui.label_filename.setText(f_name[0])
         if f_name[0]:
             pixmap=QPixmap(f_name[0])
             self.label_image.setPixmap(pixmap)
-            
+            # data=img_converter
+            # self.textEdit_contents.setText(converter)
+        c=converter(f_name[0])
+        c.create_gray() # 함수내 그리기 호출
         
-    def initUI(self):
-        #위치, 사이즈
-        self.setGeometry(300,300,400,400) # self.move() + self.resize()
-        self.center() #center method
-        #이름, 아이콘
-        self.setWindowTitle('My First Application')
-        self.setWindowIcon(QIcon('다운로드.png'))
-      
-        exitAction = QAction(QIcon('exit.png'), 'Exit', self)
-        exitAction.setShortcut('Ctrl+Q') #단축키로도 실행되게 설정
-        exitAction.setStatusTip('Exit') #하단 메뉴바에 표시
-        exitAction.triggered.connect(qApp.quit) #트리거        
-        self.toolbar = self.addToolBar('Exit')
-        self.toolbar.addAction(exitAction)
-        
-        menubar = self.menuBar()
-        menubar.setNativeMenuBar(False)
-        filemenu = menubar.addMenu('&File')
-        filemenu.addAction(exitAction)
-        self.statusBar()
+        f=open("temp.csv",'r', encoding='UTF-8')
+        np.data=f.read()
+        self.textEdit_contents.setText(np.data)
+        ## csv형식 말고 다른걸로 불러오는거 생각해보기
+  
 
-        #시간, 계속 표시하는 법 필요
-        self.statusBar().showMessage(self.date.toString(Qt.DefaultLocaleLongDate)+" "+self.time.toString(Qt.DefaultLocaleLongDate))
-    
-    def center(self):
-        self.show()
-        qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())
-    
+
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
