@@ -220,3 +220,5 @@ if os.path.isfile(img_dir):
 else:
     print("{} 파일이 없습니다.".format(img_dir))
 '''
+
+#test
