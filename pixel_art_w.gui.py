@@ -13,8 +13,6 @@ from PyQt5.QtGui import *
 from PyQt5 import uic
 from PyQt5 import QtWidgets
 
-#0405 let's go
-
 fill = ["⠈","⠋","⡿","⣄","⡉","⠉","⠻","⣴","⣷","⣧",' ','⣿']
 #"⠫","⠬","⠭","⠮","⠰","⠱","⠲","⠳","⠴","⠵","⠶","⠁","⠂","⠃","⠄","⠅","⠆","⠇","⠈","⠉","⠊","⠋","⠌","⠍","⠎","⠏","⠐","⠑","⠒","⠓","⠔","⠕","⠖","⠗","⠘","⠙","⠚","⠛","⠜","⠝","⠞","⠠","⠡","⠢","⠣","⠤","⠥","⠦","⠧","⠨","⠩","⠪"
 class converter():
@@ -145,18 +143,26 @@ class MyApp(QMainWindow,QDialog):
     
     def __init__(self,parent=None):
         super().__init__(parent)
-        self.ui=uic.loadUi("app.ui",self)
-        self.ui.show()
+        self=uic.loadUi("app2.ui",self)
+        self.show()
 
     def start(self):
-        self.ui.label_status.setText("start")
+        # self.label_status.setText("start")
+        QMessageBox.about(self, "message", "clicked")
+        pass
+    
     def stop(self):
-        self.ui.label_status.setText("stop") 
-
+        # self.label_status.setText("stop")
+        pass
+    
+    def clear(self):
+        self.textEdit_contents.clear()
+        pass
+    
     def slot_fileopen(self):
         fname=QFileDialog.getOpenFileName(self, 'Open file','./')
         print(type(fname),fname)
-        self.ui.label_filename.setText(fname[0])
+        self.label_filename.setText(fname[0])
         if fname[0]:
             f=open(fname[0],'r', encoding='UTF-8')
             with f:
@@ -165,31 +171,30 @@ class MyApp(QMainWindow,QDialog):
 
     #img 파일 불러오기
     def loadImageFromFile(self) :
-        f_name=QFileDialog.getOpenFileName(self, 'Open file','./', 'All File(*);;Image File(*.png *jpg)')
-        self.ui.label_filename.setText(f_name[0])
+        f_name=QFileDialog.getOpenFileName(self, 'Open file','./', 'All File(*);;Image File(*.png *jpg *jpeg)')
+        self.label_filename.setText(f_name[0])
         if f_name[0]:
             pixmap=QPixmap(f_name[0])
             self.label_image.setPixmap(pixmap)
             # data=img_converter
             # self.textEdit_contents.setText(converter)
-        c=converter(f_name[0])
-        c.create_gray() # 함수내 그리기 호출
+            c=converter(f_name[0])
+            c.create_gray() # 함수내 그리기 호출
         
-        f=open("temp.csv",'r', encoding='UTF-8')
-        np.data=f.read()
-        self.textEdit_contents.setText(np.data)
-        ## csv형식 말고 다른걸로 불러오는거 생각해보기
+            f=open("temp.csv",'r', encoding='UTF-8')
+            np.data=f.read()
+            self.textEdit_contents.setText(np.data)
+            ## csv형식 말고 다른걸로 불러오는거 생각해보기
   
-
-
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyApp()
     sys.exit(app.exec_())
-# 모드 입력 확인
+
 
 '''
+# 모드 입력 확인
 mode_check = False
 try:
     # 이미지 경로
