@@ -230,6 +230,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>radioButton</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Dialog</receiver>
+   <slot>rad_grey()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>338</x>
+     <y>669</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>236</x>
+     <y>653</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_2</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Dialog</receiver>
+   <slot>rad_color()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>405</x>
+     <y>666</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>213</x>
+     <y>667</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>start()</slot>
@@ -237,5 +269,7 @@
   <slot>slot_fileopen()</slot>
   <slot>loadImageFromFile()</slot>
   <slot>clear()</slot>
+  <slot>rad_grey()</slot>
+  <slot>rad_color()</slot>
  </slots>
 </ui>

@@ -144,7 +144,19 @@ class MyApp(QMainWindow,QDialog):
     def __init__(self,parent=None):
         super().__init__(parent)
         self=uic.loadUi("app2.ui",self)
+        self.color=0
         self.show()
+        
+        
+    def rad_grey(self):
+        self.color = 0
+        print('grey')
+        pass
+    
+    def rad_color(self):
+        self.color =1
+        print('color')
+        pass
 
     def start(self):
         # self.label_status.setText("start")
@@ -179,7 +191,11 @@ class MyApp(QMainWindow,QDialog):
             # data=img_converter
             # self.textEdit_contents.setText(converter)
             c=converter(f_name[0])
-            c.create_gray() # 함수내 그리기 호출
+            if self.color==0:
+                c.create_gray() # 함수내 그리기 호출
+            else:
+                c.create_color()
+
         
             f=open("temp.csv",'r', encoding='UTF-8')
             np.data=f.read()
