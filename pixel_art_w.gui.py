@@ -13,8 +13,11 @@ from PyQt5.QtGui import *
 from PyQt5 import uic
 from PyQt5 import QtWidgets
 
+#도트 아트 그리는 순서.. grey scale로 바꿔서 숫자로 하나씩 표현
 fill = ["⠈","⠋","⡿","⣄","⡉","⠉","⠻","⣴","⣷","⣧",' ','⣿']
 #"⠫","⠬","⠭","⠮","⠰","⠱","⠲","⠳","⠴","⠵","⠶","⠁","⠂","⠃","⠄","⠅","⠆","⠇","⠈","⠉","⠊","⠋","⠌","⠍","⠎","⠏","⠐","⠑","⠒","⠓","⠔","⠕","⠖","⠗","⠘","⠙","⠚","⠛","⠜","⠝","⠞","⠠","⠡","⠢","⠣","⠤","⠥","⠦","⠧","⠨","⠩","⠪"
+
+# 그림 그리기 class
 class converter():
     def __init__(self, dir):
         self.dir = dir
@@ -23,7 +26,7 @@ class converter():
 
     def create_gray(self):
         try:
-            with Image.open(self.dir) as img:
+            with Image.open(self.dir) as img: #파일 열었다가 끝나면 자동 닫기
                 # 이미지 모드를 흑백으로 변환
                 if img.mode != "L":
                     img = img.convert("L")
@@ -33,7 +36,7 @@ class converter():
 
                 # 이미지의 모든 픽셀 정보 로드
                 pixels = img.load()
-                print(pixels)
+                # print(pixels)
 
                 # 이미지의 폭, 높이 가져오기
                 width, height = img.size
@@ -42,15 +45,14 @@ class converter():
                 for h in range(height):
                     for w in range(width):
                         print(self.get_ascii(pixels[w, h]), end="")
-                        a.append(self.get_ascii(pixels[w, h])) 
+                        a.append(self.get_ascii(pixels[w, h])) #코드 하나씩 list에 추가
                     # 개행
                     print()
 
-                #데이터 array -> reshape -> pandas -> csv
+                #코드 array -> reshape -> pandas -> csv
                 data=np.array(a)
                 data=data.reshape(h+1,w+1)
                 data=pd.DataFrame(data)
-                data.drop([0],inplace=True)                # data=data.drop([0],axis=0)
                 data.to_csv('temp.csv',encoding='UTF-8',index=False,header=None)
                 '''
                 with open('temp.csv','w',encoding='UTF-8') as file:
@@ -60,10 +62,13 @@ class converter():
         except Exception as e:
             print("작업 중 오류가 발생하였습니다:", e)
 
+    # 0 ~ 255 사이의 값을 받은 후 0 ~ 9 범위로 변환 // 좀더 해상도 높이는 법? 순서대로 말고 
+    def get_ascii(self, value):
+        return fill[int(value / 25)-1]  
+
     def create_color(self):
         # TODO: 색상 추출
         try:
-
             with Image.open(self.dir) as img:
                 
                 # 이미지 모드가 RGB가 아닌 경우 RGB 모드로 변환
@@ -78,22 +83,24 @@ class converter():
 
                 # 이미지의 폭, 높이 가져오기
                 width, height = img.size
-                
+                a=[]
                 # 1픽셀씩 반복하며 출력
                 for h in range(height):
                     for w in range(width):
                         print(self.get_color_ascii(pixels[w, h]), end="")
+                        a.append(self.get_color_ascii(pixels[w, h])) #코드 하나씩 list에 추가
                     # 개행
                     print()
+                
+                data=np.array(a)
+                data=data.reshape(h+1,w+1)
+                data=pd.DataFrame(data)
+                data.to_csv('temp.csv',encoding='UTF-8',index=False,header=None)
+                # csv 저장한걸 불러오기보단 print 구문 자체를 표현하는게 어떨지?
+                # 색깔을 csv에 저장하기..?
 
         except Exception as e:
             print("작업 중 오류가 발생하였습니다:", e)
-    
-    # 0 ~ 255 사이의 값을 받은 후 0 ~ 9 범위로 변환 // 좀더 해상도 높이는 법? 순서대로 말고 
-    def get_ascii(self, value):
-        return fill[int(value / 25)-1] 
-        
-        
 
     def get_color_ascii(self, rgb):
         r = rgb[0]
@@ -147,7 +154,7 @@ class MyApp(QMainWindow,QDialog):
         self.color=0
         self.show()
         
-        
+    #라디오 클릭 티리거로 csv 불러오기 refresh
     def rad_grey(self):
         self.color = 0
         print('grey')
@@ -165,12 +172,15 @@ class MyApp(QMainWindow,QDialog):
     
     def stop(self):
         # self.label_status.setText("stop")
+        # close로 변경
         pass
     
     def clear(self):
         self.textEdit_contents.clear()
         pass
-    
+
+    '''
+    #파일 내용 자체 display
     def slot_fileopen(self):
         fname=QFileDialog.getOpenFileName(self, 'Open file','./')
         print(type(fname),fname)
@@ -180,7 +190,7 @@ class MyApp(QMainWindow,QDialog):
             with f:
                 data=f.read()
                 self.textEdit_contents.setText(data)
-
+    '''
     #img 파일 불러오기
     def loadImageFromFile(self) :
         f_name=QFileDialog.getOpenFileName(self, 'Open file','./', 'All File(*);;Image File(*.png *jpg *jpeg)')
@@ -188,22 +198,22 @@ class MyApp(QMainWindow,QDialog):
         if f_name[0]:
             pixmap=QPixmap(f_name[0])
             self.label_image.setPixmap(pixmap)
-            # data=img_converter
-            # self.textEdit_contents.setText(converter)
             c=converter(f_name[0])
+            
+            # 함수내 그리기 호출
             if self.color==0:
-                c.create_gray() # 함수내 그리기 호출
+                c.create_gray() 
             else:
                 c.create_color()
-
         
             f=open("temp.csv",'r', encoding='UTF-8')
             np.data=f.read()
             self.textEdit_contents.setText(np.data)
-            ## csv형식 말고 다른걸로 불러오는거 생각해보기
+            ## csv형식 말고 다른걸로 불러오는거 생각해보기 ,가 같이 불러와짐..
   
         
 if __name__ == '__main__':
+    #qtdesigner UI 실행
     app = QApplication(sys.argv)
     ex = MyApp()
     sys.exit(app.exec_())
