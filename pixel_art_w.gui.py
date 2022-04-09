@@ -13,6 +13,7 @@ from PyQt5.QtGui import *
 from PyQt5 import uic
 from PyQt5 import QtWidgets
 
+
 #도트 아트 그리는 순서.. grey scale로 바꿔서 숫자로 하나씩 표현
 fill = ["⠈","⠋","⡿","⣄","⡉","⠉","⠻","⣴","⣷","⣧",' ','⣿']
 #"⠫","⠬","⠭","⠮","⠰","⠱","⠲","⠳","⠴","⠵","⠶","⠁","⠂","⠃","⠄","⠅","⠆","⠇","⠈","⠉","⠊","⠋","⠌","⠍","⠎","⠏","⠐","⠑","⠒","⠓","⠔","⠕","⠖","⠗","⠘","⠙","⠚","⠛","⠜","⠝","⠞","⠠","⠡","⠢","⠣","⠤","⠥","⠦","⠧","⠨","⠩","⠪"
@@ -53,7 +54,7 @@ class converter():
                 data=np.array(a)
                 data=data.reshape(h+1,w+1)
                 data=pd.DataFrame(data)
-                data.to_csv('temp.csv',encoding='UTF-8',index=False,header=None)
+                data.to_csv('temp.csv',encoding='UTF-8',index=False,header=None,sep=' ')
                 '''
                 with open('temp.csv','w',encoding='UTF-8') as file:
                     write=csv.writer(file)
