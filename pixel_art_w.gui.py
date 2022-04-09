@@ -15,7 +15,7 @@ from PyQt5 import QtWidgets
 
 
 #도트 아트 그리는 순서.. grey scale로 바꿔서 숫자로 하나씩 표현
-fill = ["⠈","⠋","⡿","⣄","⡉","⠉","⠻","⣴","⣷","⣧",' ','⣿']
+fill = ["⠈","⠋","⡿","⣄","⡉","⠉","⠻","⣴","⣷","⣧","⣿"]
 #"⠫","⠬","⠭","⠮","⠰","⠱","⠲","⠳","⠴","⠵","⠶","⠁","⠂","⠃","⠄","⠅","⠆","⠇","⠈","⠉","⠊","⠋","⠌","⠍","⠎","⠏","⠐","⠑","⠒","⠓","⠔","⠕","⠖","⠗","⠘","⠙","⠚","⠛","⠜","⠝","⠞","⠠","⠡","⠢","⠣","⠤","⠥","⠦","⠧","⠨","⠩","⠪"
 
 # 그림 그리기 class
@@ -28,9 +28,8 @@ class converter():
     def create_gray(self):
         try:
             with Image.open(self.dir) as img: #파일 열었다가 끝나면 자동 닫기
-                # 이미지 모드를 흑백으로 변환
                 if img.mode != "L":
-                    img = img.convert("L")
+                    img = img.convert("L") # image convert to grey scale
 
                 # 이미지를 size에 맞게 축소 (썸네일)
                 img.thumbnail(self.size)
@@ -65,7 +64,7 @@ class converter():
 
     # 0 ~ 255 사이의 값을 받은 후 0 ~ 9 범위로 변환 // 좀더 해상도 높이는 법? 순서대로 말고 
     def get_ascii(self, value):
-        return fill[int(value / 25)-1]  
+        return fill[int(value / 25)]  #fill : array 채우기
 
     def create_color(self):
         # TODO: 색상 추출
