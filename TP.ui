@@ -36,20 +36,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>OPEN</string>
    </property>
   </widget>
   <widget class="QComboBox" name="comboBox_wk">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>80</y>
-     <width>76</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="comboBox_rk">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -58,6 +48,51 @@
      <height>22</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>WK</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1023, 1023</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>959,511</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="comboBox_rk">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>76</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>RK</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1023,1023</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>959,511</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>새 항목</string>
+    </property>
+   </item>
   </widget>
   <widget class="QPushButton" name="pushButton_run">
    <property name="geometry">
@@ -69,7 +104,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>RUN</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_exit">
@@ -82,7 +117,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>CLOSE</string>
    </property>
   </widget>
  </widget>
