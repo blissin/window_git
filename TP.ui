@@ -139,5 +139,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_exit</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>344</x>
+     <y>275</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>
