@@ -15,6 +15,9 @@ class MyApp(QDialog):
     
     def close(self):
         sys.exit(app.exec_())
+        
+    def graph(self):
+        pass
 
 
 
