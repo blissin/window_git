@@ -2,6 +2,9 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 
+from matplotlib.backends.backend_qt5agg import FigureCanvas as FigureCanvas
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+
 class MyApp(QDialog):
 
     def __init__(self):
@@ -15,6 +18,17 @@ class MyApp(QDialog):
     
     def close(self):
         sys.exit(app.exec_())
+        
+    def graph(self):
+    	#x_list, y_list, y_err, data_name에 대한 설정 코드 
+        self.x_list=[1,2,3]
+        self.y_list=[1,2,3]
+    	# self.graph_viewer.canvas.axes.plot(self.x_list, self.y_list)
+        #https://arumyworld.tistory.com/12
+        self.graph_viewer.canvas.axes.legend()
+        self.graph_viewer.canvas.axes.set_xlabel('~~~')
+        self.graph_viewer.canvas.axes.set_ylabel('~~~')
+        self.graph_viewer.canvas.draw() 
 
 
 
