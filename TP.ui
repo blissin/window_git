@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>462</width>
+    <height>537</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -97,8 +97,8 @@
   <widget class="QPushButton" name="pushButton_run">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>260</y>
+     <x>310</x>
+     <y>490</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -110,14 +110,24 @@
   <widget class="QPushButton" name="pushButton_exit">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>260</y>
+     <x>380</x>
+     <y>490</y>
      <width>75</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
     <string>CLOSE</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="graph_viewer" native="true">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>120</y>
+     <width>351</width>
+     <height>271</height>
+    </rect>
    </property>
   </widget>
  </widget>
@@ -146,8 +156,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>344</x>
-     <y>275</y>
+     <x>424</x>
+     <y>505</y>
     </hint>
     <hint type="destinationlabel">
      <x>379</x>
@@ -155,5 +165,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_run</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>graph1()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>349</x>
+     <y>504</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>104</x>
+     <y>261</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>graph1()</slot>
+ </slots>
 </ui>
