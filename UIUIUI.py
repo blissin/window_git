@@ -19,3 +19,6 @@ if __name__ == "__main__":
     window=MyWindow()
     window.show()
     app.exec_()                # 이벤트 루프 생성
+    
+    
+    #https://wikidocs.net/21875
