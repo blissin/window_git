@@ -19,7 +19,7 @@ class MyApp(QDialog):
     def close(self):
         sys.exit(app.exec_())
         
-    def graph(self):
+    def graph1(self):
     	#x_list, y_list, y_err, data_name에 대한 설정 코드 
         self.x_list=[1,2,3]
         self.y_list=[1,2,3]

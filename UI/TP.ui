@@ -6,11 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-<<<<<<< HEAD
     <width>462</width>
-=======
-    <width>400</width>
->>>>>>> f93048c41b6a71444fd73eb40868d25110dbe196
     <height>537</height>
    </rect>
   </property>
@@ -101,13 +97,8 @@
   <widget class="QPushButton" name="pushButton_run">
    <property name="geometry">
     <rect>
-<<<<<<< HEAD
      <x>310</x>
      <y>490</y>
-=======
-     <x>240</x>
-     <y>510</y>
->>>>>>> f93048c41b6a71444fd73eb40868d25110dbe196
      <width>75</width>
      <height>23</height>
     </rect>
@@ -119,13 +110,8 @@
   <widget class="QPushButton" name="pushButton_exit">
    <property name="geometry">
     <rect>
-<<<<<<< HEAD
      <x>380</x>
      <y>490</y>
-=======
-     <x>320</x>
-     <y>510</y>
->>>>>>> f93048c41b6a71444fd73eb40868d25110dbe196
      <width>75</width>
      <height>23</height>
     </rect>
@@ -134,7 +120,6 @@
     <string>CLOSE</string>
    </property>
   </widget>
-<<<<<<< HEAD
   <widget class="QWidget" name="graph_viewer" native="true">
    <property name="geometry">
     <rect>
@@ -142,27 +127,36 @@
      <y>120</y>
      <width>351</width>
      <height>271</height>
-=======
-  <widget class="matplotlibWidget" name="widget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>130</y>
-     <width>361</width>
-     <height>351</height>
->>>>>>> f93048c41b6a71444fd73eb40868d25110dbe196
     </rect>
    </property>
   </widget>
+  <widget class="QRadioButton" name="radioButton">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>420</y>
+     <width>90</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>RadioButton</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButton_2">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>420</y>
+     <width>90</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>RadioButton</string>
+   </property>
+  </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>matplotlibWidget</class>
-   <extends>QWidget</extends>
-   <header>matplotlibwidgetFile.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -188,13 +182,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-<<<<<<< HEAD
      <x>424</x>
      <y>505</y>
-=======
-     <x>364</x>
-     <y>525</y>
->>>>>>> f93048c41b6a71444fd73eb40868d25110dbe196
     </hint>
     <hint type="destinationlabel">
      <x>379</x>
@@ -206,7 +195,6 @@
    <sender>pushButton_run</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
-<<<<<<< HEAD
    <slot>graph1()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -216,26 +204,11 @@
     <hint type="destinationlabel">
      <x>104</x>
      <y>261</y>
-=======
-   <slot>graph()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>288</x>
-     <y>523</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>136</x>
-     <y>381</y>
->>>>>>> f93048c41b6a71444fd73eb40868d25110dbe196
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-<<<<<<< HEAD
   <slot>graph1()</slot>
-=======
-  <slot>graph()</slot>
->>>>>>> f93048c41b6a71444fd73eb40868d25110dbe196
  </slots>
 </ui>
