@@ -17,14 +17,47 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>400</x>
       <y>20</y>
       <width>75</width>
-      <height>23</height>
+      <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>inquiry</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_current">
+    <property name="geometry">
+     <rect>
+      <x>99</x>
+      <y>20</y>
+      <width>281</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>81</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>BTC PRICE : </string>
+    </property>
+   </widget>
+   <widget class="QDateTimeEdit" name="dateTimeEdit">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>70</y>
+      <width>194</width>
+      <height>22</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -46,20 +79,21 @@
    <sender>pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>btn_clicked()</slot>
+   <slot>inquiry()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>64</x>
-     <y>52</y>
+     <x>434</x>
+     <y>46</y>
     </hint>
     <hint type="destinationlabel">
-     <x>262</x>
-     <y>58</y>
+     <x>506</x>
+     <y>76</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>btn_clicked()</slot>
+  <slot>inquiry()</slot>
  </slots>
 </ui>
