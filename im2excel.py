@@ -30,3 +30,5 @@ for x in range(w):
         sheet.row_dimensions[y].height = 30
 
 wb.save("./아이유사진.xlsx")
+
+'test'
