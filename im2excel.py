@@ -31,4 +31,4 @@ for x in range(w):
 
 wb.save("./아이유사진.xlsx")
 
-'test'
+'test' 'test'
