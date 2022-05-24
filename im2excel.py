@@ -16,19 +16,20 @@ wb = openpyxl.Workbook()
 sheet = wb.active
 sheet.title = "im2xls"
 
+cell_size=2
 h, w, color= img.shape
 for x in range(w):
-    sheet.column_dimensions[get_column_letter(x+1)].width = 5
+    sheet.column_dimensions[get_column_letter(x+1)].width = 0.5*cell_size
     for y in range(h):
         b, g, r, = img[y, x]
-        color_code = colors.to_hex([r/255, g/255, b/255])[1:]
-        sheet.cell(
-            row=y + 1,
-            column=x + 1).fill = PatternFill(
+        # print(b,g,r)
+        color_code = colors.to_hex([r/255, g/255, b/255])[1:] #xxxxxx
+        sheet.cell(row=y + 1, column=x + 1).fill = PatternFill(
             start_color=color_code,
             end_color=color_code,
             fill_type="solid"
         )
-        sheet.row_dimensions[y].height = 30
+        sheet.row_dimensions[y].height = 3*cell_size
+
 
 wb.save("./im2xls.xlsx")
