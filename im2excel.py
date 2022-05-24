@@ -4,17 +4,19 @@ from openpyxl.styles import PatternFill
 from openpyxl.utils import get_column_letter
 from matplotlib import colors
 
-img = cv2.imread("IMAGE/IU.jpg", 1)
+img = cv2.imread("IMAGE/IU.jpg", cv2.IMREAD_COLOR) #1 : cv2.IMREAD_COLOR / 0 : cv2.IMREAD_GRAYSCALE / -1 : cv2.IMREAD_UNCHANGED
+h,w,color = img.shape
+resizing = 10
 img = cv2.resize(img,
-                 (16, 20),
+                 (int(h/resizing), int(w/resizing)),
                  interpolation=cv2.INTER_AREA
                  )
 
 wb = openpyxl.Workbook()
 sheet = wb.active
-sheet.title = "아이유"
+sheet.title = "im2xls"
 
-h, w, _ = img.shape
+h, w, color= img.shape
 for x in range(w):
     sheet.column_dimensions[get_column_letter(x+1)].width = 5
     for y in range(h):
@@ -29,6 +31,4 @@ for x in range(w):
         )
         sheet.row_dimensions[y].height = 30
 
-wb.save("./아이유사진.xlsx")
-
-'test' 'test'
+wb.save("./im2xls.xlsx")
