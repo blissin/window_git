@@ -11,10 +11,14 @@ class MainWindow(QMainWindow, Ui_class):
         super().__init__()
         self.setupUi(self)
         self.setWindowTitle('MY application')
-        
+                
         # self=uic.loadUi("main_window.ui",self)
         # self.initUI()
         
+    def open_file(self):
+        fname= QFileDialog.getOpenFileName(self)
+        self.label.setText(fname[0])
+    
     def initUI(self):
         self.setWindowTitle('Main Window')
         self.setGeometry(100, 100, 300, 200)
