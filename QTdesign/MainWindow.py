@@ -1,15 +1,16 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-# from SubWindow import SubWindow
+from SubWindow import SubWindow
 from PyQt5 import uic
 
-Ui_class=uic.loadUiType("mw.ui")[0]
+Ui_class=uic.loadUiType("QTdesign\m_w.ui")[0]
 
 class MainWindow(QMainWindow, Ui_class):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowTitle('MY application')
         
         # self=uic.loadUi("main_window.ui",self)
         # self.initUI()
