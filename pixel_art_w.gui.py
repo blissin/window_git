@@ -13,6 +13,8 @@ from PyQt5.QtGui import *
 from PyQt5 import uic
 from PyQt5 import QtWidgets
 
+import im2excel
+
 
 #도트 아트 그리는 순서.. grey scale로 바꿔서 숫자로 하나씩 표현
 fill = ["⠈","⠋","⡿","⣄","⡉","⠉","⠻","⣴","⣷","⣧","⣿"]
@@ -150,7 +152,7 @@ class MyApp(QMainWindow,QDialog):
     
     def __init__(self,parent=None):
         super().__init__(parent)
-        self=uic.loadUi("app2.ui",self)
+        self=uic.loadUi("UI/app2.ui",self)
         self.color=0
         self.show()
         
@@ -211,6 +213,10 @@ class MyApp(QMainWindow,QDialog):
             self.textEdit_contents.setText(np.data)
             ## csv형식 말고 다른걸로 불러오는거 생각해보기 ,가 같이 불러와짐..
   
+
+img_xls=im2excel.cv2xls()
+img_xls.img_2_xls('')
+
         
 if __name__ == '__main__':
     #qtdesigner UI 실행
