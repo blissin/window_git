@@ -154,6 +154,7 @@ class MyApp(QMainWindow,QDialog):
         super().__init__(parent)
         self=uic.loadUi("UI/app2.ui",self)
         self.color=0
+        self.output_type=0
         self.show()
         
     #라디오 클릭 티리거로 csv 불러오기 refresh
@@ -193,29 +194,40 @@ class MyApp(QMainWindow,QDialog):
                 data=f.read()
                 self.textEdit_contents.setText(data)
     '''
+    def img2ascii(self):
+        self.output_type=1
+    def img2xls(self):
+        self.output_type=0
+
     #img 파일 불러오기
     def loadImageFromFile(self) :
         f_name=QFileDialog.getOpenFileName(self, 'Open file','./', 'All File(*);;Image File(*.png *jpg *jpeg)')
         self.label_filename.setText(f_name[0])
-        if f_name[0]:
-            pixmap=QPixmap(f_name[0])
-            self.label_image.setPixmap(pixmap)
-            c=converter(f_name[0])
+        # print(type(f_name[0]))
+        file_name=f_name[0].split('/')[-1]
+        file_type=file_name.split('.')[-1]
+        if self.output_type==1:
+            if f_name[0]:
+                pixmap=QPixmap(f_name[0])
+                self.label_image.setPixmap(pixmap)
+                c=converter(f_name[0])
+                
+                # 함수내 그리기 호출
+                if self.color==0:
+                    c.create_gray() 
+                else:
+                    c.create_color()
             
-            # 함수내 그리기 호출
-            if self.color==0:
-                c.create_gray() 
-            else:
-                c.create_color()
-        
-            f=open("temp.csv",'r', encoding='UTF-8')
-            np.data=f.read()
-            self.textEdit_contents.setText(np.data)
-            ## csv형식 말고 다른걸로 불러오는거 생각해보기 ,가 같이 불러와짐..
-  
+                f=open("temp.csv",'r', encoding='UTF-8')
+                np.data=f.read()
+                self.textEdit_contents.setText(np.data)
+                ## csv형식 말고 다른걸로 불러오는거 생각해보기 ,가 같이 불러와짐..
+        elif self.output_type==0:
+            img_xls=im2excel.cv2xls()
+            img_xls.img_2_xls(f_name[0])
 
-img_xls=im2excel.cv2xls()
-img_xls.img_2_xls('')
+# img_xls=im2excel.cv2xls()
+# img_xls.img_2_xls('')
 
         
 if __name__ == '__main__':

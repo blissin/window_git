@@ -12,6 +12,7 @@ class cv2xls():
 
     def img_2_xls(self,file_direct):
         if file_direct != '':
+            print(file_direct)
             img = cv2.imread(file_direct, 1) #1 : cv2.IMREAD_COLOR / 0 : cv2.IMREAD_GRAYSCALE / -1 : cv2.IMREAD_UNCHANGED
         elif file_direct =='':
             img = cv2.imread("IMAGE/인생4컷.jpg", 1)

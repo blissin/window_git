@@ -19,8 +19,8 @@
   <widget class="QLabel" name="label_filename">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>10</y>
+     <x>100</x>
+     <y>30</y>
      <width>500</width>
      <height>20</height>
     </rect>
@@ -59,7 +59,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>9</y>
+     <y>29</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -128,7 +128,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>40</y>
+     <y>60</y>
      <width>680</width>
      <height>131</height>
     </rect>
@@ -161,6 +161,32 @@
    </property>
    <property name="text">
     <string>color</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButton_3">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>10</y>
+     <width>100</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>XLS</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButton_4">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>10</y>
+     <width>100</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>ASCII</string>
    </property>
   </widget>
  </widget>
@@ -262,6 +288,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>radioButton_3</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Dialog</receiver>
+   <slot>img2xls()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>94</x>
+     <y>17</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>134</x>
+     <y>2</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_4</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Dialog</receiver>
+   <slot>img2ascii()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>28</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>312</x>
+     <y>2</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>start()</slot>
@@ -271,5 +329,7 @@
   <slot>clear()</slot>
   <slot>rad_grey()</slot>
   <slot>rad_color()</slot>
+  <slot>img2xls()</slot>
+  <slot>img2ascii()</slot>
  </slots>
 </ui>
