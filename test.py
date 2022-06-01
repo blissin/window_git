@@ -40,12 +40,12 @@ class MainWindow(QMainWindow, Ui_class):
         
         self.setCentralWidget(centralWidget)
         
-    def onButtonClicked(self):
-        win = SubWindow()
-        r = win.showModal()
-        if r:
-            text = win.edit.text()
-            self.label.setText(text)
+    # def onButtonClicked(self):
+    #     win = SubWindow()
+    #     r = win.showModal()
+    #     if r:
+    #         text = win.edit.text()
+    #         self.label.setText(text)
     def show(self):
         super().show()
 
