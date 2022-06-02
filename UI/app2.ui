@@ -20,8 +20,8 @@
    <property name="geometry">
     <rect>
      <x>100</x>
-     <y>30</y>
-     <width>500</width>
+     <y>31</y>
+     <width>591</width>
      <height>20</height>
     </rect>
    </property>
@@ -59,7 +59,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>29</y>
+     <y>30</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -86,31 +86,6 @@
     </font>
    </property>
   </widget>
-  <widget class="QLabel" name="label_image">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>50</y>
-     <width>680</width>
-     <height>300</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>굴림</family>
-     <pointsize>9</pointsize>
-    </font>
-   </property>
-   <property name="toolTip">
-    <string/>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
-   </property>
-   <property name="text">
-    <string> img</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_clear">
    <property name="geometry">
     <rect>
@@ -130,12 +105,40 @@
      <x>20</x>
      <y>60</y>
      <width>680</width>
-     <height>131</height>
+     <height>300</height>
     </rect>
    </property>
    <property name="title">
-    <string>Output</string>
+    <string>IMAGE</string>
    </property>
+   <widget class="QLabel" name="label_image">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>660</width>
+      <height>280</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>굴림</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string/>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QRadioButton" name="radioButton">
    <property name="geometry">
@@ -189,6 +192,17 @@
     <string>ASCII</string>
    </property>
   </widget>
+  <zorder>Output</zorder>
+  <zorder>label_filename</zorder>
+  <zorder>pushButton_start</zorder>
+  <zorder>pushButton_stop</zorder>
+  <zorder>pushButton_open</zorder>
+  <zorder>textEdit_contents</zorder>
+  <zorder>pushButton_clear</zorder>
+  <zorder>radioButton</zorder>
+  <zorder>radioButton_2</zorder>
+  <zorder>radioButton_3</zorder>
+  <zorder>radioButton_4</zorder>
  </widget>
  <resources/>
  <connections>
