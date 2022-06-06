@@ -29,32 +29,6 @@
     <string>No file</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_start">
-   <property name="geometry">
-    <rect>
-     <x>460</x>
-     <y>650</y>
-     <width>75</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>start</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_stop">
-   <property name="geometry">
-    <rect>
-     <x>540</x>
-     <y>650</y>
-     <width>75</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>stop</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_open">
    <property name="geometry">
     <rect>
@@ -84,19 +58,6 @@
      <weight>50</weight>
      <bold>false</bold>
     </font>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_clear">
-   <property name="geometry">
-    <rect>
-     <x>620</x>
-     <y>650</y>
-     <width>75</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>clear</string>
    </property>
   </widget>
   <widget class="QGroupBox" name="Output">
@@ -140,69 +101,129 @@
     </property>
    </widget>
   </widget>
-  <widget class="QRadioButton" name="radioButton">
-   <property name="geometry">
-    <rect>
-     <x>330</x>
-     <y>658</y>
-     <width>60</width>
-     <height>15</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>grey</string>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="radioButton_2">
-   <property name="geometry">
-    <rect>
-     <x>390</x>
-     <y>658</y>
-     <width>60</width>
-     <height>15</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>color</string>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="radioButton_3">
+  <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>10</y>
-     <width>100</width>
-     <height>20</height>
+     <y>-10</y>
+     <width>211</width>
+     <height>41</height>
     </rect>
    </property>
-   <property name="text">
-    <string>XLS</string>
+   <property name="title">
+    <string>Graphic mode</string>
    </property>
+   <widget class="QRadioButton" name="radioButton_4">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>20</y>
+      <width>100</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ASCII</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>100</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>XLS</string>
+    </property>
+   </widget>
   </widget>
-  <widget class="QRadioButton" name="radioButton_4">
+  <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>10</y>
-     <width>100</width>
-     <height>20</height>
+     <x>310</x>
+     <y>650</y>
+     <width>391</width>
+     <height>31</height>
     </rect>
    </property>
-   <property name="text">
-    <string>ASCII</string>
+   <property name="title">
+    <string/>
    </property>
+   <widget class="QRadioButton" name="radioButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>60</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>grey</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_2">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>10</y>
+      <width>60</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>color</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_start">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>0</y>
+      <width>75</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>start</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_stop">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>0</y>
+      <width>75</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>stop</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_clear">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>0</y>
+      <width>75</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>clear</string>
+    </property>
+   </widget>
   </widget>
+  <zorder>groupBox_2</zorder>
+  <zorder>groupBox</zorder>
   <zorder>Output</zorder>
   <zorder>label_filename</zorder>
-  <zorder>pushButton_start</zorder>
-  <zorder>pushButton_stop</zorder>
   <zorder>pushButton_open</zorder>
   <zorder>textEdit_contents</zorder>
-  <zorder>pushButton_clear</zorder>
-  <zorder>radioButton</zorder>
-  <zorder>radioButton_2</zorder>
-  <zorder>radioButton_3</zorder>
-  <zorder>radioButton_4</zorder>
  </widget>
  <resources/>
  <connections>

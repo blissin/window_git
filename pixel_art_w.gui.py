@@ -157,6 +157,8 @@ class MyApp(QMainWindow,QDialog):
         self=uic.loadUi("UI/app2.ui",self)
         self.color=0
         self.output_type=0
+        self.radioButton_3.setChecked(True)
+        self.radioButton.setChecked(True)
         self.show()
         
     #라디오 클릭 티리거로 csv 불러오기 refresh
