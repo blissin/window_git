@@ -19,15 +19,18 @@ import im2excel
 '''https://wikidocs.net/book/2944'''
 
 #도트 아트 그리는 순서.. grey scale로 바꿔서 숫자로 하나씩 표현
-fill = ["⠈","⠋","⡿","⣄","⡉","⠉","⠻","⣴","⣷","⣧","⣿"]
+fill = ["⣿", "⣾", "⣷", "⡿", "⢻", "⣧", "⡞", "⠻", "⣴", "⣄", "⡆", "⡉", "⠋", "⠉", "⠈","⠀"]
 #"⠫","⠬","⠭","⠮","⠰","⠱","⠲","⠳","⠴","⠵","⠶","⠁","⠂","⠃","⠄","⠅","⠆","⠇","⠈","⠉","⠊","⠋","⠌","⠍","⠎","⠏","⠐","⠑","⠒","⠓","⠔","⠕","⠖","⠗","⠘","⠙","⠚","⠛","⠜","⠝","⠞","⠠","⠡","⠢","⠣","⠤","⠥","⠦","⠧","⠨","⠩","⠪"
 
 # 그림 그리기 class
 class converter():
-    def __init__(self, dir):
+    def __init__(self, dir,resizing):
         self.dir = dir
-        self.size = (50, 50)
-        init(autoreset=True)
+        self.size = (int(resizing), int(resizing))
+
+    # 0 ~ 255 사이의 값을 받은 후 0 ~ 9 범위로 변환 // 좀더 해상도 높이는 법? 순서대로 말고 
+    def get_ascii(self, value):
+        return fill[int(value / 16)]  #fill : array 채우기
 
     def create_gray(self):
         try:
@@ -50,7 +53,6 @@ class converter():
                     for w in range(width):
                         print(self.get_ascii(pixels[w, h]), end="")
                         a.append(self.get_ascii(pixels[w, h])) #코드 하나씩 list에 추가
-                    # 개행
                     print()
 
                 #코드 array -> reshape -> pandas -> csv
@@ -58,23 +60,14 @@ class converter():
                 data=data.reshape(h+1,w+1)
                 data=pd.DataFrame(data)
                 data.to_csv('temp.csv',encoding='UTF-8',index=False,header=None,sep=' ')
-                '''
-                with open('temp.csv','w',encoding='UTF-8') as file:
-                    write=csv.writer(file)
-                    write.writerow(a)
-                '''    
+                # csv 저장한걸 불러오기보단 print 구문 자체를 표현하는게 어떨지?
         except Exception as e:
             print("작업 중 오류가 발생하였습니다:", e)
-
-    # 0 ~ 255 사이의 값을 받은 후 0 ~ 9 범위로 변환 // 좀더 해상도 높이는 법? 순서대로 말고 
-    def get_ascii(self, value):
-        return fill[int(value / 25)]  #fill : array 채우기
 
     def create_color(self):
         # TODO: 색상 추출
         try:
             with Image.open(self.dir) as img:
-                
                 # 이미지 모드가 RGB가 아닌 경우 RGB 모드로 변환
                 if img.mode != "RGB":
                     img = img.convert("RGB")
@@ -84,7 +77,7 @@ class converter():
 
                 # 이미지의 모든 픽셀 정보 로드
                 pixels = img.load()
-
+                
                 # 이미지의 폭, 높이 가져오기
                 width, height = img.size
                 a=[]
@@ -93,14 +86,12 @@ class converter():
                     for w in range(width):
                         print(self.get_color_ascii(pixels[w, h]), end="")
                         a.append(self.get_color_ascii(pixels[w, h])) #코드 하나씩 list에 추가
-                    # 개행
                     print()
                 
                 data=np.array(a)
                 data=data.reshape(h+1,w+1)
                 data=pd.DataFrame(data)
                 data.to_csv('temp.csv',encoding='UTF-8',index=False,header=None)
-                # csv 저장한걸 불러오기보단 print 구문 자체를 표현하는게 어떨지?
                 # 색깔을 csv에 저장하기..?
 
         except Exception as e:
@@ -155,10 +146,10 @@ class MyApp(QMainWindow,QDialog):
     def __init__(self,parent=None):
         super().__init__(parent)
         self=uic.loadUi("UI/app2.ui",self)
+        
         self.color=0
-        self.output_type=0
-        self.radioButton_3.setChecked(True)
         self.radioButton.setChecked(True)
+        self.btn_pixel.setChecked(True)
         self.show()
         
     #라디오 클릭 티리거로 csv 불러오기 refresh
@@ -173,58 +164,48 @@ class MyApp(QMainWindow,QDialog):
         pass
 
     def start(self):
-        # self.label_status.setText("start")
-        QMessageBox.about(self, "message", "clicked")
+        self.image_run()
+        QMessageBox.about(self, "Message", "Done")
         pass
     
     def stop(self):
+        QMessageBox.about(self, "Message", "Stopped")
+        sys.exit()
         # self.label_status.setText("stop")
-        # close로 변경
-        pass
+        
     
     def clear(self):
         self.textEdit_contents.clear()
         pass
 
-    '''
-    #파일 내용 자체 display
-    def slot_fileopen(self):
-        fname=QFileDialog.getOpenFileName(self, 'Open file','./')
-        print(type(fname),fname)
-        self.label_filename.setText(fname[0])
-        if fname[0]:
-            f=open(fname[0],'r', encoding='UTF-8')
-            with f:
-                data=f.read()
-                self.textEdit_contents.setText(data)
-    '''
-    def img2ascii(self):
-        self.output_type=1
-    def img2xls(self):
-        self.output_type=0
-
     #img 파일 불러오기
     def loadImageFromFile(self) :
         try:
-            f_name=QFileDialog.getOpenFileName(self, 'Open file','./', 'All File(*);;Image File(*.png *jpg *jpeg)')
-            self.label_filename.setText(f_name[0])
-            # print(type(f_name[0]))
-            file_name=f_name[0].split('/')[-1]
+            self.f_name=QFileDialog.getOpenFileName(self, 'Open file','./', 'All File(*);;Image File(*.png *jpg *jpeg)')
+            self.label_filename.setText(self.f_name[0])
+            self.image_run()
+        except:
+            pass
+    
+    def image_run(self) :
+        try:
+            file_name=self.f_name[0].split('/')[-1]
             file_type=file_name.split('.')[-1]
-            pixmap=QPixmap(f_name[0])
+            pixmap=QPixmap(self.f_name[0])
+            self.label_size.setText("원본 사이즈 : "+str(pixmap.width())+" X "+str(pixmap.height()))
+            
             if pixmap.width() > 650:
                 pixmap=pixmap.scaledToWidth(650)
                 if pixmap.height() > 280:
                     pixmap=pixmap.scaledToHeight(280)
             elif pixmap.height() > 280:
                 pixmap=pixmap.scaledToHeight(280)
+            self.label_image.setPixmap(pixmap) #이미지 표시
             
-            self.label_image.setPixmap(pixmap)
-            
-            if self.output_type==1:
-                c=converter(f_name[0])
-                
-                # 함수내 그리기 호출
+            resizing=self.lineEdit_size.text()
+            c=converter(self.f_name[0],resizing)
+            #img2ascii
+            if self.btn_pixel.isChecked() :
                 if self.color==0:
                     c.create_gray() 
                 else:
@@ -232,60 +213,22 @@ class MyApp(QMainWindow,QDialog):
             
                 f=open("temp.csv",'r', encoding='UTF-8')
                 np.data=f.read()
-                self.textEdit_contents.setText(np.data)
-                ## csv형식 말고 다른걸로 불러오는거 생각해보기 ,가 같이 불러와짐..
-            elif self.output_type==0:
-                img_xls=im2excel.cv2xls()
-                img_xls.img_2_xls(f_name[0])
+                self.textEdit_contents.setText(np.data) # csv형식 말고 다른걸로 바로 실행하기?
                 
+            #cv2xls
+            elif self.btn_xls.isChecked() :
+                self.textEdit_contents.setText(" XLS DONE ")
+                self.textEdit_contents.setFont(QFont('바탕체', 10))
+                img_xls=im2excel.cv2xls(resizing)
+                img_xls.img_2_xls(self.f_name[0])
+            else : pass
  
-        except:
+        except Exception as e:
+            print("작업 중 오류가 발생하였습니다:", e)
             pass
-
-# img_xls=im2excel.cv2xls()
-# img_xls.img_2_xls('')
-
         
 if __name__ == '__main__':
     #qtdesigner UI 실행
     app = QApplication(sys.argv)
     ex = MyApp()
     sys.exit(app.exec_())
-
-
-'''
-# 모드 입력 확인
-mode_check = False
-try:
-    # 이미지 경로
-    img_dir = sys.argv[1]
-except:
-    print("이미지 경로를 찾을 수 없습니다.")
-    exit()
-
-try:
-    # 실행 모드
-    mode = sys.argv[2].lower()
-    mode_check = True
-except:
-    pass
-
-if os.path.isfile(img_dir):
-    c = converter(img_dir)
-
-    if mode_check:
-        if mode == "-grey":
-            c.create_gray()
-        elif mode == "-color":
-            c.create_color()
-        else:
-            print("알 수 없는 모드입니다. {}".format(mode))
-    else:
-        # 모드를 입력하지 않았으면 흑백모드로 진행
-        c.create_gray()
-        
-else:
-    print("{} 파일이 없습니다.".format(img_dir))
-'''
-
-#test
